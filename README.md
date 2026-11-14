@@ -2,7 +2,7 @@
 
 # 🔓 Uncensored AI in VM
 
-**Jalankan LLM Uncensored Raksasa (Gemma 31B Heretic) di Dual GPU Kaggle (2x T4 16GB) Secara Gratis & Sambungkan ke OpenCode / Client AI Lokal.**
+**Jalankan Model AI Uncensored (Gemma 31B & Qwen 2.5 Coder 7B) di Cloud GPU (Kaggle 2x T4) Secara Gratis & Sambungkan ke OpenCode / Client AI Lokal.**
 
 Trik Symlink 0 MB Disk · Dual T4 VRAM Offload · Ngrok Tunnel Bebas Timeout · In-Notebook Streaming Chat
 
@@ -16,24 +16,38 @@ Trik Symlink 0 MB Disk · Dual T4 VRAM Offload · Ngrok Tunnel Bebas Timeout · 
 
 <br/>
 
-[Overview](#-overview) • [Installation & Prerequisites](#-installation--prerequisites) • [Dataset Model](#-dataset-model-wajib) • [Cara Pakai](#-cara-pakai-3-langkah-instan) • [Konfigurasi OpenCode](#-konfigurasi-opencode) • [Troubleshooting](#-troubleshooting)
+[Overview](#-overview) • [Pilihan Model](#-pilihan-model-dataset) • [Installation & Prerequisites](#-installation--prerequisites) • [Cara Pakai](#-cara-pakai-3-langkah-instan) • [Konfigurasi OpenCode](#-konfigurasi-opencode) • [Troubleshooting](#-troubleshooting)
 
 <hr/>
 
 </div>
 
 > [!IMPORTANT]
-> **Disclaimer & Responsible Use**: Proyek ini dibuat untuk tujuan riset, edukasi, dan eksperimen pribadi dalam menjalankan model open-weights besar di lingkungan cloud terbatas. Pengguna bertanggung jawab penuh atas segala prompt, konten, dan output yang dihasilkan dari model LLM yang dijalankan melalui pipeline ini.
+> **Disclaimer & Responsible Use**: Proyek ini dibuat untuk tujuan riset, edukasi, dan eksperimen pribadi dalam menjalankan model open-weights di lingkungan cloud terbatas. Pengguna bertanggung jawab penuh atas segala prompt, konten, dan output yang dihasilkan dari model LLM yang dijalankan melalui pipeline ini.
 
 ## ✨ Overview
 
-Repository ini menyediakan notebook siap pakai (`uncensored-ai-in-vm.ipynb`) untuk menjalankan model LLM Uncensored berukuran besar (**Gemma 4 31B Heretic**) menggunakan hardware gratis dari **Kaggle (2x Nvidia T4 = 30 GB VRAM)**, lalu menghubungkannya langsung ke aplikasi coding desktop seperti **OpenCode** atau client berbasis OpenAI-compatible.
+Repository ini menyediakan notebook siap pakai (`uncensored-ai-in-vm.ipynb`) untuk menjalankan model AI Uncensored menggunakan hardware gratis dari **Kaggle (2x Nvidia T4 = 30 GB VRAM)**, lalu menghubungkannya langsung ke aplikasi coding desktop seperti **OpenCode** atau client berbasis OpenAI-compatible.
 
 ### 🔥 Keunggulan Pipeline Ini:
-- **Trik Symlink 0 MB Disk:** Mengatasi keterbatasan storage writable Kaggle (20 GB) dengan symlink file bobot model 19 GB langsung dari dataset input tanpa memakan kuota disk.
+- **Trik Symlink 0 MB Disk:** Mengatasi batas storage writable Kaggle (20 GB) dengan menghubungkan file bobot model langsung dari input dataset tanpa memakan kuota disk.
 - **Bebas Limit Timeout 100 Detik:** Menggunakan Ngrok tunnel sehingga bebas dari pemutusan paksa Cloudflare `HTTP 524`.
-- **Anti-Banned / Anti-Kill:** Menggunakan HTTPS tunnel biasa (bukan VPN/WireGuard seperti Tailscale) yang aman dari deteksi pemindaian otomatis container Kaggle.
-- **Dukungan Chat 2 Arah:** Bisa langsung diajak ngobrol secara streaming di browser Kaggle atau dari OpenCode di komputer lokal.
+- **Anti-Banned / Anti-Kill:** Menggunakan HTTPS tunnel biasa (bukan VPN/WireGuard seperti Tailscale) yang aman dari scanner IDS Kaggle.
+- **Dukungan Chat 2 Arah:** Bisa diajak ngobrol langsung di browser Kaggle (streaming) atau dari OpenCode di komputer lokal.
+
+---
+
+## 💾 Pilihan Model (Dataset)
+
+Pilih salah satu dataset model di bawah ini sesuai kebutuhan Anda:
+
+| Model | Ukuran | Karakteristik Utama | Link Dataset Kaggle |
+|---|---|---|---|
+| **Gemma 4 31B Heretic** *(Model Besar)* | ~18.7 GB | **Deep Knowledge & Penalaran Kompleks.** Sangat cocok untuk diskusi panjang, analisis arsitektur, dan instruksi rumit tanpa sensor moral. | https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama |
+| **Qwen 2.5 Coder 7B Abliterated** *(Model Ringan)* | ~4.7 GB | **Super Cepat & Ahli Coding / Cyber Sec.** Sangat presisi dalam membuat script (Python, Bash, C, PowerShell), otomatisasi exploit/payload, dan refactoring kode. | https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-coder-7b-abliterated-ollama |
+
+> [!TIP]
+> **1 Notebook untuk Semua Model:** Notebook [`uncensored-ai-in-vm.ipynb`](./uncensored-ai-in-vm.ipynb) secara otomatis mendeteksi model mana pun yang Anda pasang di `/kaggle/input`. Anda tidak perlu mengubah kode apa pun di dalam notebook!
 
 ---
 
@@ -56,21 +70,13 @@ Sebelum mulai, pastikan Anda telah menyiapkan hal-hal berikut:
 
 ---
 
-## 💾 Dataset Model (Wajib)
-
-Model yang digunakan sudah dipersiapkan dalam bentuk dataset Kaggle cache Ollama:
-
-👉 **[Kaggle Dataset: gemma-31b-heretic-ollama](https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama)**
-
-*(Dataset ini berisi file bobot GGUF Q4_K_M ~19 GB dan manifests Ollama yang siap dimount).*
-
----
-
 ## 🚀 Cara Pakai (3 Langkah Instan)
 
-### Langkah 1: Buat Notebook Baru dari Dataset
-1. Buka link dataset: [gemma-31b-heretic-ollama](https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama).
-2. Klik tombol **New Notebook** di pojok kanan atas halaman dataset. Dataset otomatis langsung terpasang di `/kaggle/input/`.
+### Langkah 1: Buat Notebook Baru dari Dataset Pilihan Anda
+1. Buka salah satu link dataset di atas:
+   - https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama
+   - https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-coder-7b-abliterated-ollama
+2. Klik tombol **New Notebook** di pojok kanan atas halaman dataset. Dataset otomatis terpasang di `/kaggle/input/`.
 3. Di panel kanan (*Notebook options*):
    - **Accelerator**: Pilih **GPU T4 x2**.
    - **Internet**: Pastikan **Internet on** (centang aktif).
@@ -84,7 +90,7 @@ Model yang digunakan sudah dipersiapkan dalam bentuk dataset Kaggle cache Ollama
    ```python
    NGROK_TOKEN = "MASUKKAN_AUTHTOKEN_ANDA_DI_SINI"
    ```
-2. Klik tombol **Run All** (atau jalankan Sel 1, 2, 3 berurutan).
+2. Klik tombol **Run All** (atau jalankan Sel 1, 2, 3 berurutan). Sel 2 otomatis mendeteksi model apa pun yang Anda pasang!
 3. Di output **Sel 3**, salin URL yang muncul di samping tulisan:  
    `🔥 URL UNTUK OPENCODE: https://xxxx-xx-xx.ngrok-free.dev/v1`
 
@@ -107,7 +113,14 @@ Buka file konfigurasi OpenCode di komputer Anda (`~/.config/opencode/opencode.js
       },
       "models": {
         "hf.co/mradermacher/gemma-4-31B-it-heretic-GGUF:Q4_K_M": {
-          "name": "Gemma 31B Heretic",
+          "name": "Gemma 31B Heretic (Besar)",
+          "limit": {
+            "context": 16384,
+            "output": 8192
+          }
+        },
+        "hf.co/mradermacher/Qwen2.5-Coder-7B-Instruct-abliterated-GGUF:Q4_K_M": {
+          "name": "Qwen 2.5 Coder 7B (Ringan/Cepat)",
           "limit": {
             "context": 16384,
             "output": 8192
@@ -128,9 +141,9 @@ Buka file konfigurasi OpenCode di komputer Anda (`~/.config/opencode/opencode.js
 
 ## 🧠 Trik Utama: Symlink 0 MB (Anti-Crash)
 
-Ukuran model 31B adalah **18.7 GB**, sementara batas disk writable Kaggle hanya **20 GB**. Jika file di-download atau di-copy biasa, disk langsung 100% penuh dan container dimatikan paksa (`Exit code: 137`).
+Model AI memiliki ukuran besar (5 GB s/d 19 GB), sementara batas disk writable Kaggle hanya **20 GB**. Jika file di-download atau di-copy biasa, disk langsung penuh dan container dimatikan paksa (`Exit code: 137`).
 
-* **`blobs`** (berisi file GGUF 18.7 GB) **hanya di-symlink** (shortcut) dari `/kaggle/input/` ke cache Ollama. Memakan waktu 0 detik dan 0 MB kuota disk!
+* **`blobs`** (file bobot GGUF) **hanya di-symlink** (shortcut) dari `/kaggle/input/` ke cache Ollama. Memakan waktu 0 detik dan 0 MB kuota disk!
 * **`manifests`** (metadata JSON beberapa KB) **di-copy fisik** menggunakan `shutil.copy2` (wajib karena Ollama menolak jika manifests berupa symlink).
 
 ---
@@ -139,7 +152,7 @@ Ukuran model 31B adalah **18.7 GB**, sementara batas disk writable Kaggle hanya 
 
 | Kendala | Penyebab | Solusi |
 |---|---|---|
-| **Exit code 137 / SIGKILL** | Melakukan copy file 19 GB hingga storage Kaggle 20 GB habis. | Gunakan symlink untuk `blobs` (hanya `manifests` yang di-copy). |
+| **Exit code 137 / SIGKILL** | Melakukan copy file besar hingga storage Kaggle 20 GB habis. | Gunakan symlink untuk `blobs` (hanya `manifests` yang di-copy). |
 | **`manifest symlink target outside model directory`** | Ollama menolak jika folder `manifests` berupa symlink. | Copy file manifest dengan `shutil.copy2` seperti pada Sel 2. |
 | **HTTP 524 Timeout** | Cloudflare Tunnel memutus koneksi jika model mikir >100 detik. | Gunakan **Ngrok** (Sel 3) yang bebas dari limit timeout 100s. |
 | **HTTP 404 Not Found** | URL di `opencode.json` tidak memiliki akhiran `/v1`. | Tambahkan `/v1` di akhir `baseURL`. |
