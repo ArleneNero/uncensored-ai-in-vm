@@ -77,9 +77,9 @@ Sebelum mulai, pastikan Anda telah menyiapkan hal-hal berikut:
    - https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama
    - https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-coder-7b-abliterated-ollama
 2. Klik tombol **New Notebook** di pojok kanan atas halaman dataset. Dataset otomatis terpasang di `/kaggle/input/`.
-3. Di panel kanan (*Notebook options*):
-   - **Accelerator**: Pilih **GPU T4 x2**.
-   - **Internet**: Pastikan **Internet on** (centang aktif).
+3. Di menu bar atas notebook Kaggle, klik menu **Settings**:
+   - Klik **Accelerator** $\to$ pilih **GPU T4 x2**.
+   - Pastikan internet aktif (jika tulisannya **Turn on internet**, klik agar berubah menjadi aktif / *Turn off internet*).
 
 ### Langkah 2: Upload Notebook Ini ke Kaggle
 1. Di menu atas notebook Kaggle, klik **File** $\to$ **Upload Notebook**.
