@@ -81,8 +81,8 @@ Sebelum mulai, pastikan Anda telah menyiapkan hal-hal berikut:
    - Klik **Accelerator** $\to$ pilih **GPU T4 x2**.
    - Pastikan internet aktif (jika tulisannya **Turn on internet**, klik agar berubah menjadi aktif / *Turn off internet*).
 
-### Langkah 2: Upload Notebook Ini ke Kaggle
-1. Di menu atas notebook Kaggle, klik **File** $\to$ **Upload Notebook**.
+### Langkah 2: Upload / Import Notebook Ini ke Kaggle
+1. Di menu atas notebook Kaggle, klik **File** $\to$ **Upload Notebook** / **Import Notebook**.
 2. Pilih file [`uncensored-ai-in-vm.ipynb`](./uncensored-ai-in-vm.ipynb) dari repository ini.
 
 ### Langkah 3: Masukkan Token Ngrok & Jalankan
