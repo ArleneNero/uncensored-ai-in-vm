@@ -1,6 +1,3 @@
-> [!IMPORTANT]
-> **Disclaimer & Responsible Use**: Proyek ini dibuat untuk tujuan riset, edukasi, dan eksperimen pribadi dalam menjalankan model open-weights besar di lingkungan cloud terbatas. Pengguna bertanggung jawab penuh atas segala prompt, konten, dan output yang dihasilkan dari model LLM yang dijalankan melalui pipeline ini.
-
 <div align="center">
 
 # 🔓 Uncensored AI in VM
@@ -19,11 +16,14 @@ Trik Symlink 0 MB Disk · Dual T4 VRAM Offload · Ngrok Tunnel Bebas Timeout · 
 
 <br/>
 
-[Overview](#-overview) • [Dataset Model](#-dataset-model-wajib) • [Cara Pakai](#-cara-pakai-3-langkah-instan) • [Konfigurasi OpenCode](#-konfigurasi-opencode) • [Troubleshooting](#-troubleshooting)
+[Overview](#-overview) • [Installation & Prerequisites](#-installation--prerequisites) • [Dataset Model](#-dataset-model-wajib) • [Cara Pakai](#-cara-pakai-3-langkah-instan) • [Konfigurasi OpenCode](#-konfigurasi-opencode) • [Troubleshooting](#-troubleshooting)
 
 <hr/>
 
 </div>
+
+> [!IMPORTANT]
+> **Disclaimer & Responsible Use**: Proyek ini dibuat untuk tujuan riset, edukasi, dan eksperimen pribadi dalam menjalankan model open-weights besar di lingkungan cloud terbatas. Pengguna bertanggung jawab penuh atas segala prompt, konten, dan output yang dihasilkan dari model LLM yang dijalankan melalui pipeline ini.
 
 ## ✨ Overview
 
@@ -37,7 +37,26 @@ Repository ini menyediakan notebook siap pakai (`uncensored-ai-in-vm.ipynb`) unt
 
 ---
 
-## 📦 Dataset Model (Wajib)
+## 📦 Installation & Prerequisites
+
+Sebelum mulai, pastikan Anda telah menyiapkan hal-hal berikut:
+
+### 1. Akun Cloud (Gratis)
+- **Akun Kaggle Terverifikasi (No. HP):** Wajib agar bisa mengaktifkan **GPU T4 x2** dan fitur **Internet on**. Daftar di [kaggle.com](https://www.kaggle.com).
+- **Akun Ngrok (Gratis):** Untuk mendapatkan tunnel publik tanpa batas timeout. Salin token gratis Anda di [dashboard.ngrok.com/get-started/your-authtoken](https://dashboard.ngrok.com/get-started/your-authtoken).
+
+### 2. Client di Komputer Lokal
+- Pasang **[OpenCode Desktop](https://opencode.ai)** (atau client AI lokal lainnya seperti Continue.dev / LibreChat).
+- Clone atau unduh file notebook dari repository ini:
+  ```bash
+  git clone https://github.com/ArleneNero/uncensored-ai-in-vm.git
+  cd uncensored-ai-in-vm
+  ```
+  *(Atau cukup download langsung file [`uncensored-ai-in-vm.ipynb`](./uncensored-ai-in-vm.ipynb)).*
+
+---
+
+## 💾 Dataset Model (Wajib)
 
 Model yang digunakan sudah dipersiapkan dalam bentuk dataset Kaggle cache Ollama:
 
@@ -61,13 +80,12 @@ Model yang digunakan sudah dipersiapkan dalam bentuk dataset Kaggle cache Ollama
 2. Pilih file [`uncensored-ai-in-vm.ipynb`](./uncensored-ai-in-vm.ipynb) dari repository ini.
 
 ### Langkah 3: Masukkan Token Ngrok & Jalankan
-1. Ambil Authtoken Ngrok gratis Anda di [dashboard.ngrok.com/get-started/your-authtoken](https://dashboard.ngrok.com/get-started/your-authtoken).
-2. Pada **Sel 3**, masukkan token Anda:
+1. Masukkan token Ngrok Anda pada **Sel 3**:
    ```python
    NGROK_TOKEN = "MASUKKAN_AUTHTOKEN_ANDA_DI_SINI"
    ```
-3. Klik tombol **Run All** (atau jalankan Sel 1, 2, 3 berurutan).
-4. Di output **Sel 3**, salin URL yang muncul di samping tulisan:  
+2. Klik tombol **Run All** (atau jalankan Sel 1, 2, 3 berurutan).
+3. Di output **Sel 3**, salin URL yang muncul di samping tulisan:  
    `🔥 URL UNTUK OPENCODE: https://xxxx-xx-xx.ngrok-free.dev/v1`
 
 ---
