@@ -119,6 +119,17 @@ Sebelum mulai, pastikan Anda telah menyiapkan hal-hal berikut:
 3. Di output **Sel 3**, salin URL yang muncul di samping tulisan:  
    `🔥 URL UNTUK OPENCODE: https://xxxx-xx-xx.ngrok-free.dev/v1`
 
+### Langkah 4: Pasang URL ke Konfigurasi OpenCode
+1. Buka file konfigurasi OpenCode di komputer Anda:
+   - **Windows:** `%USERPROFILE%\.config\opencode\opencode.json`
+   - **Linux / macOS:** `~/.config/opencode/opencode.json`
+2. Tempel URL yang Anda dapat dari Langkah 3 ke bagian `"baseURL"`:
+   ```json
+   "baseURL": "https://xxxx-xx-xx.ngrok-free.dev/v1"
+   ```
+   *(Pastikan akhiran `/v1` tetap ada).*
+3. Simpan file dan buka **OpenCode Desktop**. Pilih model yang diinginkan dan Anda siap coding!
+
 ---
 
 ## 🔌 Konfigurasi OpenCode
