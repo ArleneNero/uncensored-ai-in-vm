@@ -46,6 +46,11 @@ Pilih salah satu dataset model di bawah ini sesuai kebutuhan Anda:
 | **Gemma 4 31B Heretic** *(Model Besar)* | ~18.7 GB | **Deep Knowledge & Penalaran Kompleks.** Sangat cocok untuk diskusi panjang, analisis arsitektur, dan instruksi rumit tanpa sensor moral. | https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama |
 | **Qwen 2.5 Coder 7B Abliterated** *(Model Ringan)* | ~4.7 GB | **Super Cepat & Ahli Coding / Cyber Sec.** Sangat presisi dalam membuat script (Python, Bash, C, PowerShell), otomatisasi exploit/payload, dan refactoring kode. | https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-coder-7b-abliterated-ollama |
 
+> [!NOTE]
+> **Atribusi Model & Alasan Penggunaan Fitur Dataset:**  
+> - **Bukan Pelatihan Mandiri:** Seluruh bobot model di atas merupakan karya riset dari organisasi pengembang aslinya (Google DeepMind, Alibaba Qwen, dsb.) dengan teknik kuantisasi GGUF dan abliterasi oleh komunitas open-source (*mradermacher, failspy, huihui-ai*).
+> - **Mengapa Dipublikasikan sebagai Dataset?** Fitur *Kaggle Models* dirancang untuk distribusi arsitektur machine learning standar (PyTorch/Transformers). Sementara itu, pipeline pada repositori ini membutuhkan akses langsung ke struktur direktori internal runtime Ollama (`blobs` dan `manifests`). Dengan menyimpannya sebagai **Dataset Kaggle**, file cache dapat dimount secara instan (0 detik download) dan dihubungkan menggunakan teknik symlink 0 MB tanpa mengubah struktur file biner aslinya.
+
 > [!TIP]
 > **1 Notebook untuk Semua Model:** Notebook [`uncensored-ai-in-vm.ipynb`](./uncensored-ai-in-vm.ipynb) secara otomatis mendeteksi model mana pun yang Anda pasang di `/kaggle/input`. Anda tidak perlu mengubah kode apa pun di dalam notebook!
 
