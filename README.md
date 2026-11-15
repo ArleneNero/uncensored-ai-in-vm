@@ -2,7 +2,7 @@
 
 # 🔓 Uncensored AI in VM
 
-**Jalankan Model AI Uncensored (Gemma 31B & Qwen 2.5 Coder 7B) di Cloud GPU (Kaggle 2x T4) Secara Gratis & Sambungkan ke OpenCode / Client AI Lokal.**
+**Jalankan Model AI Uncensored (Gemma 31B, Qwen 14B, Qwen 7B) di Cloud GPU (Kaggle 2x T4 16GB) Secara Gratis & Sambungkan ke OpenCode / Client AI Lokal.**
 
 Trik Symlink 0 MB Disk · Dual T4 VRAM Offload · Ngrok Tunnel Bebas Timeout · In-Notebook Streaming Chat
 
@@ -16,7 +16,7 @@ Trik Symlink 0 MB Disk · Dual T4 VRAM Offload · Ngrok Tunnel Bebas Timeout · 
 
 <br/>
 
-[Overview](#-overview) • [Pilihan Model](#-pilihan-model-dataset) • [Installation & Prerequisites](#-installation--prerequisites) • [Cara Pakai](#-cara-pakai-3-langkah-instan) • [Konfigurasi OpenCode](#-konfigurasi-opencode) • [Troubleshooting](#-troubleshooting)
+[Overview](#-overview) • [Pilihan Model](#-pilihan-model-dataset) • [Panduan Setting Konteks](#-panduan-setting-konteks-token) • [Installation](#-installation--prerequisites) • [Cara Pakai](#-cara-pakai-3-langkah-instan) • [Konfigurasi OpenCode](#-konfigurasi-opencode) • [Troubleshooting](#-troubleshooting)
 
 <hr/>
 
@@ -33,18 +33,20 @@ Repository ini menyediakan notebook siap pakai (`uncensored-ai-in-vm.ipynb`) unt
 - **Trik Symlink 0 MB Disk:** Mengatasi batas storage writable Kaggle (20 GB) dengan menghubungkan file bobot model langsung dari input dataset tanpa memakan kuota disk.
 - **Bebas Limit Timeout 100 Detik:** Menggunakan Ngrok tunnel sehingga bebas dari pemutusan paksa Cloudflare `HTTP 524`.
 - **Anti-Banned / Anti-Kill:** Menggunakan HTTPS tunnel biasa (bukan VPN/WireGuard seperti Tailscale) yang aman dari scanner IDS Kaggle.
+- **Konteks Luas (Hingga 32k/64k Token):** Mendukung percakapan panjang dan analisis file source code ratusan baris.
 - **Dukungan Chat 2 Arah:** Bisa diajak ngobrol langsung di browser Kaggle (streaming) atau dari OpenCode di komputer lokal.
 
 ---
 
 ## 💾 Pilihan Model (Dataset)
 
-Pilih salah satu dataset model di bawah ini sesuai kebutuhan Anda:
+Pilih salah satu dataset model di bawah ini sesuai kebutuhan tugas Anda:
 
-| Model | Ukuran | Karakteristik Utama | Link Dataset Kaggle |
-|---|---|---|---|
-| **Gemma 4 31B Heretic** *(Model Besar)* | ~18.7 GB | **Deep Knowledge & Penalaran Kompleks.** Sangat cocok untuk diskusi panjang, analisis arsitektur, dan instruksi rumit tanpa sensor moral. | https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama |
-| **Qwen 2.5 Coder 7B Abliterated** *(Model Ringan)* | ~4.7 GB | **Super Cepat & Ahli Coding / Cyber Sec.** Sangat presisi dalam membuat script (Python, Bash, C, PowerShell), otomatisasi exploit/payload, dan refactoring kode. | https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-coder-7b-abliterated-ollama |
+| Kasta Model | Ukuran | Karakteristik Utama | Rekomendasi Penggunaan | Link Dataset Kaggle |
+|---|---|---|---|---|
+| **Gemma 4 31B Heretic** *(Model Raksasa)* | ~18.7 GB | **Deep Knowledge & Penalaran Kompleks.** Otak terbesar dan wawasan paling mendalam untuk instruksi rumit tanpa sensor. | Arsitektur sistem, riset mendalam, diskusi filosofis tingkat tinggi. | https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama |
+| **Qwen 2.5 14B Instruct (Abliterated)** *(Model Menengah)* | ~9.0 GB | ⚖️ **Sweet Spot Sempurna.** Sangat cerdas, bahasa Indonesia sangat luwes/nyambung, dan tetap gesit di GPU T4. | **Diskusi harian**, tanya jawab hacking/keamanan, analisis konsep, chat cerdas. | https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-14b-instruct-abliterated-ollama |
+| **Qwen 2.5 Coder 7B (Abliterated)** *(Model Ringan)* | ~4.7 GB | ⚡ **Super Cepat & Presisi Coding.** Ngetik kilat (40-50 token/s), ahli membuat script (Python, Bash, C, PowerShell) dan payload. | Task coding cepat, nulis script/tools, refactoring, bug fixing. | https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-coder-7b-abliterated-ollama |
 
 > [!NOTE]
 > **Atribusi Model & Alasan Penggunaan Fitur Dataset:**  
@@ -53,6 +55,23 @@ Pilih salah satu dataset model di bawah ini sesuai kebutuhan Anda:
 
 > [!TIP]
 > **1 Notebook untuk Semua Model:** Notebook [`uncensored-ai-in-vm.ipynb`](./uncensored-ai-in-vm.ipynb) secara otomatis mendeteksi model mana pun yang Anda pasang di `/kaggle/input`. Anda tidak perlu mengubah kode apa pun di dalam notebook!
+
+---
+
+## 🎛️ Panduan Setting Konteks Token
+
+Batas konteks (*Context Window*) menentukan seberapa panjang ingatan percakapan dan file kode yang bisa dibaca oleh AI dalam 1 waktu:
+
+| Model | Konteks Bawaan | Rekomendasi Konteks (`context`) | Rekomendasi Output (`output`) | Catatan VRAM GPU T4 |
+|---|---|---|---|---|
+| **Qwen 2.5 Coder 7B** | 8.192 | **32.768 (32k)** / **65.536 (64k)** | **8.192** / **16.384** | Sangat enteng. VRAM T4 hanya terpakai ~6-8 GB. |
+| **Qwen 2.5 14B Instruct** | 8.192 | **32.768 (32k)** | **8.192** / **16.384** | Stabil & responsif. VRAM T4 terpakai ~11-13 GB. |
+| **Gemma 4 31B Heretic** | 8.192 | **16.384 (16k)** | **8.192** | Maksimal 16k agar VRAM dual T4 (30 GB) tidak meluap. |
+
+> [!IMPORTANT]
+> - Konfigurasi di notebook (`uncensored-ai-in-vm.ipynb`) pada Sel 2 sudah diset default ke:  
+>   `os.environ["OLLAMA_CONTEXT_LENGTH"] = "32768"`
+> - Pastikan pengaturan `limit.context` di `opencode.json` tidak melebihi kapasitas `OLLAMA_CONTEXT_LENGTH` di notebook agar memori tetap optimal.
 
 ---
 
@@ -80,6 +99,7 @@ Sebelum mulai, pastikan Anda telah menyiapkan hal-hal berikut:
 ### Langkah 1: Buat Notebook Baru dari Dataset Pilihan Anda
 1. Buka salah satu link dataset di atas:
    - https://www.kaggle.com/datasets/muhammadariefsyah/gemma-31b-heretic-ollama
+   - https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-14b-instruct-abliterated-ollama
    - https://www.kaggle.com/datasets/muhammadariefsyah/qwen-2-5-coder-7b-abliterated-ollama
 2. Klik tombol **New Notebook** di pojok kanan atas halaman dataset. Dataset otomatis terpasang di `/kaggle/input/`.
 3. Di menu bar atas notebook Kaggle, klik menu **Settings**:
@@ -118,17 +138,24 @@ Buka file konfigurasi OpenCode di komputer Anda (`~/.config/opencode/opencode.js
       },
       "models": {
         "hf.co/mradermacher/gemma-4-31B-it-heretic-GGUF:Q4_K_M": {
-          "name": "Gemma 31B Heretic (Besar)",
+          "name": "Gemma 31B Heretic (Raksasa / Riset)",
           "limit": {
             "context": 16384,
             "output": 8192
           }
         },
-        "hf.co/mradermacher/Qwen2.5-Coder-7B-Instruct-abliterated-GGUF:Q4_K_M": {
-          "name": "Qwen 2.5 Coder 7B (Ringan/Cepat)",
+        "hf.co/mradermacher/Qwen2.5-14B-Instruct-abliterated-v2-GGUF:Q4_K_M": {
+          "name": "Qwen 2.5 14B Instruct (Menengah / Chat Cerdas)",
           "limit": {
-            "context": 16384,
-            "output": 8192
+            "context": 32768,
+            "output": 16384
+          }
+        },
+        "hf.co/mradermacher/Qwen2.5-Coder-7B-Instruct-abliterated-GGUF:Q4_K_M": {
+          "name": "Qwen 2.5 Coder 7B (Ringan / Cepat & Coding)",
+          "limit": {
+            "context": 32768,
+            "output": 16384
           }
         }
       }
@@ -140,7 +167,7 @@ Buka file konfigurasi OpenCode di komputer Anda (`~/.config/opencode/opencode.js
 > [!NOTE]
 > - Pastikan `baseURL` selalu berakhiran **`/v1`**.
 > - Di dropdown model OpenCode, pilih opsi **`Default`** (jangan pilih *Low/Medium/High* karena model GGUF ini tidak menggunakan parameter thinking OpenAI).
-> - Nilai `output: 8192` mencegah error *"Response still truncated after two output token limit continuations"*.
+> - Nilai `output: 8192` atau `16384` mencegah error *"Response still truncated after two output token limit continuations"*.
 
 ---
 
@@ -162,4 +189,4 @@ Model AI memiliki ukuran besar (5 GB s/d 19 GB), sementara batas disk writable K
 | **HTTP 524 Timeout** | Cloudflare Tunnel memutus koneksi jika model mikir >100 detik. | Gunakan **Ngrok** (Sel 3) yang bebas dari limit timeout 100s. |
 | **HTTP 404 Not Found** | URL di `opencode.json` tidak memiliki akhiran `/v1`. | Tambahkan `/v1` di akhir `baseURL`. |
 | **Does not support thinking** | Mengatur dropdown reasoning di OpenCode ke *Low/Medium/High*. | Kembalikan dropdown reasoning ke **`Default`**. |
-| **Response still truncated** | Jawaban panjang terpotong batas token bawaan. | Atur `"limit": { "context": 16384, "output": 8192 }` di `opencode.json`. |
+| **Response still truncated** | Jawaban panjang terpotong batas token bawaan. | Naikkan batas `"limit": { "context": 32768, "output": 16384 }` di `opencode.json`. |
